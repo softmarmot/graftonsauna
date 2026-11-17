@@ -14,7 +14,7 @@
 	<div class="container">
 		<div class="cards">
 			<a class="card c" href={site.phoneHref}><p class="eyebrow">Call</p><h3>{site.phone}</h3><p>Tue – Sun, during opening hours</p></a>
-			<a class="card c" href="mailto:{site.email}"><p class="eyebrow">Email</p><h3>{site.email}</h3><p>Bookings, events and anything else</p></a>
+			<a class="card c" href="mailto:{site.email}"><p class="eyebrow">Email</p><h3>{site.email}</h3><p>Bookings, gift cards and anything else</p></a>
 			<a class="card c" href={mapUrl} target="_blank" rel="noopener"><p class="eyebrow">Visit</p><h3>{site.address[0]}</h3><p>{site.address[1]} · free parking</p></a>
 		</div>
 		<div class="grid-2 lower">

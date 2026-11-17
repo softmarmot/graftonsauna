@@ -5,7 +5,7 @@
 	import SessionCards from '#lib/components/SessionCards.svelte';
 	import Hours from '#lib/components/Hours.svelte';
 	import Testimonials from '#lib/components/Testimonials.svelte';
-	import { site, booking, bookHref, mapUrl } from '#lib';
+	import { site, booking, bookHref, mapUrl, parallax } from '#lib';
 	import MapEmbed from '#lib/components/MapEmbed.svelte';
 
 	const features = [
@@ -81,8 +81,9 @@
 	</div>
 </section>
 
-<section class="section section--dark">
-	<div class="container">
+<section class="section section--dark ritual-band">
+	<div class="ritual-band__bg" style:background-image="url({asset('images/parallax-sauna.jpg')})" use:parallax={0.25} aria-hidden="true"></div>
+	<div class="container ritual-band__inner">
 		<div class="section-head">
 			<p class="eyebrow eyebrow--light">The ritual</p>
 			<h2>Heat. Cold. Rest. Repeat.</h2>
@@ -133,6 +134,20 @@
 	.hero__ph { position: absolute; right: 20px; bottom: 16px; font-size: 0.7rem; letter-spacing: 0.1em; text-transform: uppercase; color: rgba(247, 243, 234, 0.5); }
 	.feature h3 { margin-top: 20px; }
 	.feature p { color: var(--muted); font-size: 0.97rem; }
+	/* Parallax band: the image layer is taller than the section and is moved by
+	   the parallax action. A dark green overlay keeps the text readable. */
+	.ritual-band { position: relative; overflow: hidden; padding: clamp(96px, 14vw, 180px) 0; }
+	.ritual-band__bg {
+		position: absolute; left: 0; right: 0; top: -35%; height: 170%;
+		background-size: cover; background-position: center;
+		will-change: transform;
+	}
+	.ritual-band::before {
+		content: ''; position: absolute; inset: 0; z-index: 1;
+		background: linear-gradient(180deg, rgba(20, 42, 31, 0.78), rgba(20, 42, 31, 0.5) 50%, rgba(20, 42, 31, 0.82));
+	}
+	.ritual-band__inner { position: relative; z-index: 2; }
+	@media (prefers-reduced-motion: reduce) { .ritual-band__bg { top: 0; height: 100%; } }
 	.ritual { list-style: none; padding: 0; margin: 0; display: grid; grid-template-columns: repeat(4, 1fr); gap: 28px; }
 	.ritual li { border-top: 1px solid rgba(247, 243, 234, 0.3); padding-top: 22px; }
 	.ritual span { font-family: var(--font-head); font-size: 1rem; color: #d9b48a; letter-spacing: 0.1em; font-variant-numeric: lining-nums; }

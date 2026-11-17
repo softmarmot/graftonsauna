@@ -1,0 +1,90 @@
+---
+import Base from '../layouts/Base.astro';
+import Photo from '../components/Photo.astro';
+import Logo from '../components/Logo.astro';
+import Testimonials from '../components/Testimonials.astro';
+import { site } from '../site';
+
+const values = [
+  { t: 'Real heat', d: 'A wood-burning stove, not an electric heater. It takes longer to warm, and you can feel the difference.' },
+  { t: 'Small groups', d: 'One room, eight guests at most. Nobody is rushing you out and nobody is crowding the bench.' },
+  { t: 'Cold done right', d: 'A deep cold plunge and outdoor showers, a few steps from the sauna door.' },
+  { t: 'Quiet hosting', d: 'We get everything ready, show you around and then leave you to it.' },
+  { t: 'Clean, always', d: 'A full hour between bookings to clean, restock and bring the heat back up.' },
+];
+---
+<Base title="About" description={`The story behind ${site.name}.`}>
+  <section class="page-hero">
+    <div class="container">
+      <Logo size="lg" />
+      <p class="lead" style="margin-top:36px">A small sauna house built for slow evenings, good friends and the old ritual of heat and cold.</p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container grid-2">
+      <div>
+        <p class="eyebrow">Our story</p>
+        <h2>Why we built a sauna</h2>
+        <p>We grew up with saunas: in grandparents’ gardens, by lakes, after long winter days. When we could not find one nearby that felt the same, we decided to build it ourselves.</p>
+        <p>{site.name} is the result. A timber sauna house, a cold plunge, a cedar hot tub and a lounge with a fire. Nothing flashy. Just the things that make a sauna worth the drive.</p>
+        <p>Every session is private or hosted, so the place always feels calm.</p>
+      </div>
+      <Photo label="Owners stacking firewood" tone="wood" ratio="4 / 5" />
+    </div>
+  </section>
+
+  <section class="section section--sand">
+    <div class="container grid-2">
+      <Photo label="Steam rising from the stones" tone="steam" ratio="4 / 3" />
+      <div>
+        <p class="eyebrow">The tradition</p>
+        <h2>Löyly, the breath of the sauna</h2>
+        <p>In Finland the steam that rises when water hits hot stones has its own word: löyly. It is the heart of every round. Pour a ladle, feel the wave of heat, breathe slowly.</p>
+        <p>Add a whisk of fresh birch, a cold plunge and a cup of herbal tea, and you have a ritual that people have trusted for health, rest and company for more than a thousand years.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <div style="text-align:center;max-width:640px;margin:0 auto 48px">
+        <p class="eyebrow">What we care about</p>
+        <h2>Our philosophy</h2>
+      </div>
+      <div class="values">
+        {values.map((v, i) => (
+          <div class="value">
+            <span>{String(i + 1).padStart(2, '0')}</span>
+            <h3>{v.t}</h3>
+            <p>{v.d}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--cream">
+    <div class="container grid-2">
+      <div>
+        <p class="eyebrow">Private hire</p>
+        <h2>Bring your people</h2>
+        <p>Birthdays, team days, a weekend with old friends. Book the whole sauna house for your group of up to 8, add the hot tub and a snack board, and we will have it all ready when you arrive.</p>
+        <a class="btn" href="/events">Private events</a>
+      </div>
+      <Photo label="Friends in the hot tub at night" tone="forest" ratio="4 / 3" />
+    </div>
+  </section>
+
+  <Testimonials />
+</Base>
+
+<style>
+  .values { display: grid; grid-template-columns: repeat(5, 1fr); gap: 28px; }
+  .value { border-top: 2px solid var(--green); padding-top: 18px; }
+  .value span { font-family: var(--font-head); color: var(--wood); }
+  .value h3 { margin: 4px 0 8px; }
+  .value p { color: var(--muted); font-size: .95rem; }
+  @media (max-width: 960px) { .values { grid-template-columns: 1fr 1fr; } }
+  @media (max-width: 520px) { .values { grid-template-columns: 1fr; } }
+</style>

@@ -1,0 +1,50 @@
+---
+import Base from '../layouts/Base.astro';
+import Photo from '../components/Photo.astro';
+import Hours from '../components/Hours.astro';
+import { site } from '../site';
+---
+<Base title="Contact" description={`How to find and contact ${site.name}.`}>
+  <section class="page-hero">
+    <div class="container">
+      <p class="eyebrow">Get in touch</p>
+      <h1>Contact & directions</h1>
+      <p class="lead">Questions about a booking, a private event or gift cards? We usually reply within a day.</p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container contact">
+      <div class="contact__cards">
+        <a class="card contact__card" href={site.phoneHref}>
+          <p class="eyebrow">Call</p><h3>{site.phone}</h3><p>Tue – Sun, during opening hours</p>
+        </a>
+        <a class="card contact__card" href={`mailto:${site.email}`}>
+          <p class="eyebrow">Email</p><h3>{site.email}</h3><p>Bookings, events and anything else</p>
+        </a>
+        <a class="card contact__card" href={site.mapUrl} target="_blank" rel="noopener">
+          <p class="eyebrow">Visit</p><h3>{site.address[0]}</h3><p>{site.address[1]} · free parking</p>
+        </a>
+      </div>
+      <div class="grid-2" style="margin-top:64px;align-items:start">
+        <div>
+          <h2>Opening hours</h2>
+          <Hours />
+        </div>
+        <div>
+          <Photo label="Map embed goes here" tone="steam" ratio="4 / 3" />
+          <p style="margin-top:14px;color:var(--muted);font-size:.95rem">Arrive 10 minutes early so we can show you around. Your session time starts at the booked time.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .contact__cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+  .contact__card { text-decoration: none; color: inherit; transition: border-color .2s, transform .2s; }
+  .contact__card:hover { border-color: var(--green); transform: translateY(-2px); }
+  .contact__card h3 { font-size: 1.45rem; overflow-wrap: anywhere; }
+  .contact__card p:last-child { color: var(--muted); margin: 0; }
+  @media (max-width: 860px) { .contact__cards { grid-template-columns: 1fr; } }
+</style>

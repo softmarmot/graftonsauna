@@ -1,10 +1,12 @@
-<!-- Google Maps embed for the location in src/lib/site.ts (no API key). -->
+<!--
+	Full-width Google Maps band for the location in src/lib/site.ts (no API key).
+	Spans the whole viewport, edge to edge, like a section of its own.
+-->
 <script lang="ts">
 	import { site, mapEmbedUrl } from '#lib';
-	let { ratio = '4 / 3' }: { ratio?: string } = $props();
 </script>
 
-<div class="map" style:aspect-ratio={ratio}>
+<section class="map" aria-label="Map">
 	<iframe
 		src={mapEmbedUrl}
 		title="Map showing {site.name}"
@@ -12,9 +14,9 @@
 		referrerpolicy="no-referrer-when-downgrade"
 		allowfullscreen
 	></iframe>
-</div>
+</section>
 
 <style>
-	.map { width: 100%; border-radius: var(--radius); overflow: hidden; border: 1px solid var(--line); background: var(--sand); }
+	.map { width: 100%; height: clamp(320px, 45vw, 520px); background: var(--sand); }
 	.map iframe { display: block; width: 100%; height: 100%; border: 0; filter: grayscale(0.35) contrast(1.05); }
 </style>

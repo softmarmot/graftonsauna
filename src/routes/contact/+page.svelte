@@ -23,13 +23,16 @@
 				<Hours />
 			</div>
 			<div>
-				<MapEmbed />
-				<p class="directions"><a class="btn btn--ghost" href={mapUrl} target="_blank" rel="noopener">Get directions</a></p>
+				<h2>Finding us</h2>
+				<p>{site.address[0]}<br />{site.address[1]}</p>
 				<p class="note">Arrive 10 minutes early so we can show you around. Your session time starts at the booked time.</p>
+				<p class="directions"><a class="btn btn--ghost" href={mapUrl} target="_blank" rel="noopener">Get directions</a></p>
 			</div>
 		</div>
 	</div>
 </section>
+
+<MapEmbed />
 
 <style>
 	.cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }

@@ -104,7 +104,6 @@
 			<p class="note">Community Sauna runs Tuesday and Thursday at 6:30 pm. Private bookings fill every other slot.</p>
 		</div>
 		<div>
-			<MapEmbed />
 			<div class="visit__card">
 				<h3>Visit us</h3>
 				<p>{site.address[0]}<br />{site.address[1]}</p>
@@ -114,6 +113,8 @@
 		</div>
 	</div>
 </section>
+
+<MapEmbed />
 
 <Testimonials />
 
@@ -140,5 +141,5 @@
 	@media (max-width: 860px) { .ritual { grid-template-columns: 1fr 1fr; } }
 	@media (max-width: 480px) { .ritual { grid-template-columns: 1fr; } }
 	.note { margin-top: 20px; color: var(--muted); }
-	.visit__card { background: var(--paper); border: 1px solid var(--line); border-radius: var(--radius); padding: 28px; margin-top: 16px; }
+	.visit__card { background: var(--paper); border: 1px solid var(--line); border-radius: var(--radius); padding: 36px; }
 </style>

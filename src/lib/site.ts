@@ -49,4 +49,4 @@ export const nav = [
   { href: '/events', label: 'Events' },
   { href: '/faq', label: 'FAQ' },
   { href: '/contact', label: 'Contact' },
-];
+] as const;

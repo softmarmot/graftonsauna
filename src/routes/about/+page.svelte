@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { resolve } from '$app/paths';
 	import Seo from '#lib/components/Seo.svelte';
 	import Photo from '#lib/components/Photo.svelte';
 	import Logo from '#lib/components/Logo.svelte';
@@ -72,7 +73,7 @@
 			<p class="eyebrow">Private hire</p>
 			<h2>Bring your people</h2>
 			<p>Birthdays, team days, a weekend with old friends. Book the whole sauna house for your group of up to 8, add the hot tub and a snack board, and we will have it all ready when you arrive.</p>
-			<a class="btn" href="/events">Private events</a>
+			<a class="btn" href={resolve('/events')}>Private events</a>
 		</div>
 		<Photo label="Friends in the hot tub at night" tone="forest" ratio="4 / 3" />
 	</div>

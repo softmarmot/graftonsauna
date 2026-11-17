@@ -1,6 +1,7 @@
 <script lang="ts">
 	import '../app.css';
 	import { page } from '$app/state';
+	import { resolve } from '$app/paths';
 	import Logo from '#lib/components/Logo.svelte';
 	import BookingSlot from '#lib/components/BookingSlot.svelte';
 	import { site, nav, bookHref, booking } from '#lib';
@@ -9,7 +10,8 @@
 	let { children }: LayoutProps = $props();
 	let open = $state(false);
 	const year = new Date().getFullYear();
-	const current = $derived(page.url.pathname.replace(/\/$/, '') || '/');
+	const current = $derived(page.url.pathname.replace(/\/$/, ''));
+	const isCurrent = (href: string) => current === href.replace(/\/$/, '');
 	const external = booking.bookingUrl ? { target: '_blank', rel: 'noopener' } : {};
 </script>
 
@@ -17,10 +19,10 @@
 
 <header class="header" class:is-open={open}>
 	<div class="container header__inner">
-		<a href="/" class="header__logo" onclick={() => (open = false)}><Logo /></a>
+		<a href={resolve('/')} class="header__logo" onclick={() => (open = false)}><Logo /></a>
 		<nav class="header__nav" id="site-nav" aria-label="Main">
 			{#each nav as item}
-				<a href={item.href} aria-current={current === item.href ? 'page' : undefined} onclick={() => (open = false)}>{item.label}</a>
+				<a href={resolve(item.href)} aria-current={isCurrent(resolve(item.href)) ? 'page' : undefined} onclick={() => (open = false)}>{item.label}</a>
 			{/each}
 			<a class="header__phone header__phone--mobile" href={site.phoneHref}>{site.phone}</a>
 		</nav>
@@ -65,7 +67,7 @@
 			<p><a href={site.phoneHref}>{site.phone}</a><br /><a href="mailto:{site.email}">{site.email}</a></p>
 			<h4>Explore</h4>
 			<p class="footer__links">
-				{#each nav.slice(1) as n}<a href={n.href}>{n.label}</a>{/each}
+				{#each nav.slice(1) as n}<a href={resolve(n.href)}>{n.label}</a>{/each}
 			</p>
 		</div>
 	</div>

@@ -79,7 +79,7 @@
 	</div>
 </section>
 
-<Testimonials />
+<Testimonials tone="plain" />
 
 <style>
 	.values { display: grid; grid-template-columns: repeat(5, 1fr); gap: 28px; }

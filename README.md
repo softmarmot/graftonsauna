@@ -33,7 +33,7 @@ Every page ends with the booking section (`#book`).
 - **Sessions, add-ons, menu, events, FAQ, testimonials:** `src/lib/data.ts`
 - **Colours and fonts:** `src/app.css` (`:root` tokens)
 - **Logo (concept #1, roof + steam):** `src/lib/components/Logo.svelte`
-- **Photos:** pass `src="/images/..."` to `<Photo>` and put the files in `static/images/`
+- **Photos:** pass `src={asset("/images/...")}` (from `$app/paths`) to `<Photo>` and put the files in `static/images/`
 
 ## Booking (Square Appointments)
 
@@ -56,9 +56,24 @@ npm run build    # static site in build/
 
 ## Deploy
 
-Any static host works. Recommended: **Cloudflare Pages** (or Netlify).
+### GitHub Pages (current)
 
-- Connect the GitHub repo. The build command is `npm run build` and the output directory is `build`.
-- Every push to `main` deploys, and every PR gets its own preview URL.
-- Add the custom domain once it is bought.
-- Before launch, remove the `noindex` meta in `src/app.html`, the `Disallow: /` in `static/robots.txt`, and the demo banner in `src/routes/+layout.svelte`.
+`.github/workflows/deploy.yml` builds and deploys on every push to `main`. You can also run it by hand from the Actions tab.
+
+One-time setup: **Settings → Pages → Build and deployment → Source: GitHub Actions**.
+
+The site is then live at `https://<owner>.github.io/graftonsauna/`. The build sets `BASE_PATH=/graftonsauna`, so every link and asset is prefixed with that path.
+Internal links must use `resolve('/route')` from `$app/paths`, and files in `static/` must use `asset('/file')`, so they keep working under that path.
+
+**Custom domain later:** add it under Settings → Pages, then create a repository variable `BASE_PATH` with an empty value
+(Settings → Secrets and variables → Actions → Variables) so the site builds at the root.
+
+To test the GitHub Pages build locally: `BASE_PATH=/graftonsauna npm run build`.
+
+### Other static hosts
+
+Cloudflare Pages or Netlify also work. Use the build command `npm run build`, the output directory `build`, and no `BASE_PATH`.
+
+### Before launch
+
+Remove the `noindex` meta in `src/app.html`, the `Disallow: /` in `static/robots.txt`, and the demo banner in `src/routes/+layout.svelte`.

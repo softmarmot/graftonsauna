@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { resolve } from '$app/paths';
 	import Seo from '#lib/components/Seo.svelte';
 	import Photo from '#lib/components/Photo.svelte';
 	import SessionCards from '#lib/components/SessionCards.svelte';
@@ -56,7 +57,7 @@
 			<h2>Treatments & extras</h2>
 		</div>
 		<AddOns />
-		<p class="more"><a class="btn btn--ghost" href="/services">All services</a></p>
+		<p class="more"><a class="btn btn--ghost" href={resolve('/services')}>All services</a></p>
 	</div>
 </section>
 
@@ -68,7 +69,7 @@
 			<h2>Built from timber, warmed by fire</h2>
 			<p class="lead">We built {site.name} for the slow kind of sauna: real wood heat, a quiet garden and nothing on the clock except your own booking.</p>
 			<p>The room seats eight on two tiers of aspen benches. Outside there is a cold plunge, outdoor showers and a lounge with a wood stove, so you can move between heat and cold the way it has been done for centuries.</p>
-			<a class="btn btn--ghost" href="/about">Our story</a>
+			<a class="btn btn--ghost" href={resolve('/about')}>Our story</a>
 		</div>
 	</div>
 </section>

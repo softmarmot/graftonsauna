@@ -5,7 +5,7 @@
 	import SessionCards from '#lib/components/SessionCards.svelte';
 	import Hours from '#lib/components/Hours.svelte';
 	import Testimonials from '#lib/components/Testimonials.svelte';
-	import { site, booking, bookHref, mapUrl, ritualPhoto, parallax } from '#lib';
+	import { site, booking, bookHref, mapUrl, ritualPhoto, heroVideo, parallax } from '#lib';
 	import MapEmbed from '#lib/components/MapEmbed.svelte';
 
 	const features = [
@@ -14,6 +14,17 @@
 		{ title: 'Hot jacuzzi', tone: 'forest', text: 'Optional on any private booking, heated to 102°F and ready when you arrive.' },
 		{ title: 'Home-cooked food', tone: 'wood', src: 'images/menu/khachapuri.jpg', text: 'Khinkali, borscht, plov and festive platters, cooked to order for your group.' }
 	] as const;
+
+	// The video only loads in the browser, and never for visitors who prefer reduced motion
+	// (they get the still poster instead).
+	let showVideo = $state(false);
+	$effect(() => {
+		const reduce = window.matchMedia('(prefers-reduced-motion: reduce)');
+		const sync = () => (showVideo = !reduce.matches);
+		sync();
+		reduce.addEventListener('change', sync);
+		return () => reduce.removeEventListener('change', sync);
+	});
 
 	const ritual = [
 		{ n: '01', t: 'Heat', d: '10–15 minutes in the sauna. Pour water on the stones for steam.' },
@@ -26,7 +37,14 @@
 <Seo title="Home" />
 
 <section class="hero">
-	<div class="hero__bg" aria-hidden="true"></div>
+	<!-- Parallax video: moves at half the scroll speed, like the ritual band. -->
+	<div class="hero__media" style:background-image="url({heroVideo.poster})" use:parallax={0.5} aria-hidden="true">
+		{#if showVideo}
+			<video autoplay muted loop playsinline preload="auto" poster={heroVideo.poster}>
+				{#each heroVideo.sources as src}<source {src} type="video/mp4" />{/each}
+			</video>
+		{/if}
+	</div>
 	<div class="container hero__inner">
 		<p class="eyebrow eyebrow--light">Private sauna for up to 8</p>
 		<h1>Heat, cold water<br />and time to slow down</h1>
@@ -36,7 +54,9 @@
 			<a class="btn btn--ghost-light" href={booking.giftCardUrl}>Buy a gift card</a>
 		</div>
 	</div>
-	<span class="hero__ph">Video / photo · sauna house at dusk with steam</span>
+	{#if heroVideo.credit}
+		<a class="hero__credit" href={heroVideo.creditUrl} target="_blank" rel="noopener">Video: {heroVideo.credit}</a>
+	{/if}
 </section>
 
 <section class="section">
@@ -130,17 +150,25 @@
 
 <style>
 	.hero { position: relative; overflow: hidden; min-height: min(86vh, 760px); display: flex; align-items: center; color: var(--cream); background: var(--green-deep); }
-	.hero__bg {
-		position: absolute; inset: 0;
-		background:
-			radial-gradient(ellipse 60% 70% at 78% 85%, rgba(208, 138, 74, 0.55), transparent 70%),
-			radial-gradient(ellipse 50% 40% at 70% 20%, rgba(247, 243, 234, 0.12), transparent 70%),
-			linear-gradient(120deg, #142a1f 30%, #2c3a2a 65%, #5a3a1f);
+	.hero__media {
+		position: absolute; left: 0; right: 0; top: 0; height: 100%; z-index: 0;
+		background: var(--green-deep) center / cover no-repeat;
+		pointer-events: none; will-change: transform;
 	}
-	.hero__inner { position: relative; padding: 100px 0; }
+	.hero__media video { width: 100%; height: 100%; object-fit: cover; display: block; }
+	/* Overlay keeps the headline readable over any frame of the video. */
+	.hero::before {
+		content: ''; position: absolute; inset: 0; z-index: 1;
+		background:
+			linear-gradient(90deg, rgba(20, 42, 31, 0.78) 0%, rgba(20, 42, 31, 0.45) 55%, rgba(20, 42, 31, 0.2)),
+			linear-gradient(180deg, rgba(20, 42, 31, 0.35), transparent 30%, rgba(20, 42, 31, 0.5));
+	}
+	.hero h1, .hero__lead { text-shadow: 0 1px 14px rgba(0, 0, 0, 0.4); }
+	.hero__inner { position: relative; z-index: 2; padding: 100px 0; }
 	.hero h1 { color: var(--cream); max-width: 14ch; }
 	.hero__lead { font-size: 1.2rem; max-width: 520px; color: rgba(247, 243, 234, 0.85); margin-bottom: 32px; }
-	.hero__ph { position: absolute; right: 20px; bottom: 16px; font-size: 0.7rem; letter-spacing: 0.1em; text-transform: uppercase; color: rgba(247, 243, 234, 0.5); }
+	.hero__credit { position: absolute; right: 16px; bottom: 12px; z-index: 2; font-size: 0.7rem; letter-spacing: 0.06em; color: rgba(247, 243, 234, 0.7); text-decoration: none; }
+	.hero__credit:hover { text-decoration: underline; }
 	.feature h3 { margin-top: 20px; }
 	.feature p { color: var(--muted); font-size: 0.97rem; }
 	/* Parallax band. The image layer is moved by the parallax action

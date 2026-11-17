@@ -59,6 +59,20 @@ export const ritualPhoto = {
   creditUrl: 'https://unsplash.com/photos/interior-of-a-modern-wooden-sauna-with-heated-stones-Yr27GeesjZU',
 };
 
+// Hero background video (free Pexels clip). To swap it, change the URLs below
+// or point them at your own file in static/videos/ (e.g. asset('videos/hero.mp4')).
+// Sources are tried in order: light files first, the large original last.
+export const heroVideo = {
+  sources: [
+    'https://videos.pexels.com/video-files/5976354/5976354-sd_1024_540_24fps.mp4',
+    'https://videos.pexels.com/video-files/5976354/5976354-hd_1366_720_24fps.mp4',
+    'https://videos.pexels.com/video-files/5976354/5976354-uhd_2732_1440_24fps.mp4',
+  ],
+  poster: 'https://images.pexels.com/videos/5976354/baltic-sea-bath-bathe-bathing-5976354.jpeg?auto=compress&w=1920&dpr=1',
+  credit: 'Yaroslav Shuraev / Pexels',
+  creditUrl: 'https://www.pexels.com/video/a-sauna-with-a-sea-view-5976354/',
+};
+
 /** Where "Book" buttons go: Square's booking site if set, else the on-page booking section. */
 export const bookHref = booking.bookingUrl || '#book';
 

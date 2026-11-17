@@ -5,13 +5,23 @@
  * visitor prefers reduced motion.
  *
  * Usage: <div class="bg" use:parallax={0.3}></div>
- * The element should be absolutely positioned and taller than its section.
+ * The element should be absolutely positioned inside its section (which should
+ * clip overflow); the action sizes it so it always covers the section.
  */
 export function parallax(node: HTMLElement, speed = 0.3) {
 	const reduce = window.matchMedia('(prefers-reduced-motion: reduce)');
 	const section = node.parentElement ?? node;
 	let frame = 0;
 	let visible = false;
+
+	// Size the layer so it always covers the section, whatever the scroll
+	// position: it needs speed * (half viewport + half section) extra on each side.
+	const resize = () => {
+		const h = section.offsetHeight;
+		const extra = reduce.matches ? 0 : Math.ceil(speed * (window.innerHeight / 2 + h / 2)) + 2;
+		node.style.top = `${-extra}px`;
+		node.style.height = `${h + extra * 2}px`;
+	};
 
 	const update = () => {
 		frame = 0;
@@ -27,6 +37,14 @@ export function parallax(node: HTMLElement, speed = 0.3) {
 	const onScroll = () => {
 		if (visible && !frame) frame = requestAnimationFrame(update);
 	};
+	const onResize = () => {
+		resize();
+		onScroll();
+	};
+	const onMotionChange = () => {
+		resize();
+		update();
+	};
 
 	const io = new IntersectionObserver(([entry]) => {
 		visible = entry.isIntersecting;
@@ -34,20 +52,22 @@ export function parallax(node: HTMLElement, speed = 0.3) {
 	});
 	io.observe(section);
 	window.addEventListener('scroll', onScroll, { passive: true });
-	window.addEventListener('resize', onScroll);
-	reduce.addEventListener('change', update);
+	window.addEventListener('resize', onResize);
+	reduce.addEventListener('change', onMotionChange);
+	resize();
 	update();
 
 	return {
 		update(newSpeed: number) {
 			speed = newSpeed;
+			resize();
 			update();
 		},
 		destroy() {
 			io.disconnect();
 			window.removeEventListener('scroll', onScroll);
-			window.removeEventListener('resize', onScroll);
-			reduce.removeEventListener('change', update);
+			window.removeEventListener('resize', onResize);
+			reduce.removeEventListener('change', onMotionChange);
 			if (frame) cancelAnimationFrame(frame);
 		}
 	};

@@ -5,7 +5,7 @@
 	import SessionCards from '#lib/components/SessionCards.svelte';
 	import Hours from '#lib/components/Hours.svelte';
 	import Testimonials from '#lib/components/Testimonials.svelte';
-	import { site, booking, bookHref, mapUrl, parallax } from '#lib';
+	import { site, booking, bookHref, mapUrl, ritualPhoto, parallax } from '#lib';
 	import MapEmbed from '#lib/components/MapEmbed.svelte';
 
 	const features = [
@@ -82,7 +82,13 @@
 </section>
 
 <section class="section section--dark ritual-band">
-	<div class="ritual-band__bg" style:background-image="url({asset('images/parallax-sauna.jpg')})" use:parallax={0.25} aria-hidden="true"></div>
+	<!-- Parallax: the photo moves at half the scroll speed of the content. -->
+	<div
+		class="ritual-band__bg"
+		style:background-image="url({ritualPhoto.url}), url({asset('images/parallax-sauna.jpg')})"
+		use:parallax={0.5}
+		aria-hidden="true"
+	></div>
 	<div class="container ritual-band__inner">
 		<div class="section-head">
 			<p class="eyebrow eyebrow--light">The ritual</p>
@@ -94,6 +100,9 @@
 			{/each}
 		</ol>
 	</div>
+	{#if ritualPhoto.credit}
+		<a class="ritual-band__credit" href={ritualPhoto.creditUrl} target="_blank" rel="noopener">Photo: {ritualPhoto.credit}</a>
+	{/if}
 </section>
 
 <section class="section">
@@ -134,20 +143,31 @@
 	.hero__ph { position: absolute; right: 20px; bottom: 16px; font-size: 0.7rem; letter-spacing: 0.1em; text-transform: uppercase; color: rgba(247, 243, 234, 0.5); }
 	.feature h3 { margin-top: 20px; }
 	.feature p { color: var(--muted); font-size: 0.97rem; }
-	/* Parallax band: the image layer is taller than the section and is moved by
-	   the parallax action. A dark green overlay keeps the text readable. */
-	.ritual-band { position: relative; overflow: hidden; padding: clamp(96px, 14vw, 180px) 0; }
+	/* Parallax band. The image layer is moved by the parallax action
+	   (transform-based, so it works on iOS too) and clipped to the section. */
+	.ritual-band {
+		position: relative;
+		overflow: hidden;
+		min-height: 85vh;
+		display: flex; align-items: center;
+		padding: clamp(110px, 16vw, 200px) 0;
+	}
 	.ritual-band__bg {
-		position: absolute; left: 0; right: 0; top: -35%; height: 170%;
-		background-size: cover; background-position: center;
-		will-change: transform;
+		position: absolute; left: 0; right: 0; top: 0; height: 100%; z-index: 0;
+		background-size: cover, cover; background-position: center, center;
+		pointer-events: none; will-change: transform;
 	}
 	.ritual-band::before {
 		content: ''; position: absolute; inset: 0; z-index: 1;
-		background: linear-gradient(180deg, rgba(20, 42, 31, 0.78), rgba(20, 42, 31, 0.5) 50%, rgba(20, 42, 31, 0.82));
+		background: linear-gradient(180deg, rgba(20, 42, 31, 0.6), rgba(20, 42, 31, 0.3) 45%, rgba(20, 42, 31, 0.65));
 	}
-	.ritual-band__inner { position: relative; z-index: 2; }
-	@media (prefers-reduced-motion: reduce) { .ritual-band__bg { top: 0; height: 100%; } }
+	.ritual-band__inner { position: relative; z-index: 2; width: min(var(--container), 100% - 40px); }
+	.ritual-band :global(h2), .ritual-band :global(h3), .ritual-band p { text-shadow: 0 1px 12px rgba(0, 0, 0, 0.45); }
+	.ritual-band__credit {
+		position: absolute; right: 16px; bottom: 12px; z-index: 2;
+		font-size: 0.7rem; letter-spacing: 0.06em; color: rgba(247, 243, 234, 0.7); text-decoration: none;
+	}
+	.ritual-band__credit:hover { text-decoration: underline; }
 	.ritual { list-style: none; padding: 0; margin: 0; display: grid; grid-template-columns: repeat(4, 1fr); gap: 28px; }
 	.ritual li { border-top: 1px solid rgba(247, 243, 234, 0.3); padding-top: 22px; }
 	.ritual span { font-family: var(--font-head); font-size: 1rem; color: #d9b48a; letter-spacing: 0.1em; font-variant-numeric: lining-nums; }

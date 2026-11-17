@@ -49,7 +49,7 @@
 	</div>
 </section>
 
-<section class="section">
+<section class="section section--sand">
 	<div class="container grid-2">
 		<Photo label="Inside the sauna, benches and heater" tone="wood" ratio="4 / 5" />
 		<div>
@@ -62,7 +62,7 @@
 	</div>
 </section>
 
-<section class="section section--cream">
+<section class="section">
 	<div class="container">
 		<div class="section-head">
 			<p class="eyebrow">What’s included</p>

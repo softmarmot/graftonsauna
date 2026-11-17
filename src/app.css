@@ -50,7 +50,7 @@ p { margin: 0 0 1em; }
 
 .section { padding: clamp(64px, 9vw, 120px) 0; }
 .section--sand { background: var(--sand); }
-.section--cream { background: var(--cream); }
+.section--cream { background: var(--sand); } /* alias of --sand, kept for existing markup */
 .section--dark { background: var(--green); color: var(--cream); }
 .section--dark h2, .section--dark h3 { color: var(--cream); }
 

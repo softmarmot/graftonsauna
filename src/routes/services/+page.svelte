@@ -23,7 +23,7 @@
 </section>
 
 {#each details as d, i}
-	<section class="section" class:section--cream={i % 2 === 1}>
+	<section class="section" class:section--sand={i % 2 === 0}>
 		<div class="container grid-2" class:flip={i % 2 === 1}>
 			<Photo label={d.t} tone={d.tone} ratio="4 / 3" />
 			<div>
@@ -35,7 +35,7 @@
 	</section>
 {/each}
 
-<section class="section section--sand">
+<section class="section">
 	<div class="container section-head" style="margin-bottom:0">
 		<p class="eyebrow">Gift cards</p>
 		<h2>Give someone a sauna</h2>

@@ -1,8 +1,9 @@
 <script lang="ts">
 	import { testimonials } from '#lib';
+	let { tone = 'sand' }: { tone?: 'sand' | 'plain' } = $props();
 </script>
 
-<section class="section section--cream">
+<section class="section" class:section--sand={tone === 'sand'}>
 	<div class="container">
 		<div class="section-head">
 			<p class="eyebrow">Kind words</p>

@@ -1,7 +1,7 @@
 # Crafton Sauna (demo)
 
 Demo website for the Grafton Sauna client. The name **Crafton Sauna**, the phone
-number, email, address, prices, events and testimonials are all placeholders.
+number, email, address, prices and testimonials are all placeholders.
 Photos are styled placeholder blocks with a caption describing the shot that
 belongs there.
 
@@ -21,7 +21,6 @@ The look and page structure are inspired by kelospa.com. All text and artwork he
 | `/about` | Story, the tradition, philosophy, private hire, testimonials |
 | `/services` | Session cards, long-form service descriptions, gift cards |
 | `/menu` | Home-cooked dishes and festive platters (made to order), how to order |
-| `/events` | Upcoming events list, private party package, occasion cards |
 | `/faq` | Accordion of common questions |
 | `/contact` | Phone / email / address cards, hours, map slot |
 
@@ -30,7 +29,7 @@ Every page ends with the booking section (`#book`).
 ## Where to change things
 
 - **Business details, hours, nav, booking links, map location (`mapQuery`):** `src/lib/site.ts`
-- **Sessions, menu dishes, events, FAQ, testimonials:** `src/lib/data.ts`
+- **Sessions, menu dishes, FAQ, testimonials:** `src/lib/data.ts`
 - **Colours and fonts:** `src/app.css` (`:root` tokens)
 - **Logo (concept #1, roof + steam):** `src/lib/components/Logo.svelte`
 - **Photos:** pass `src={asset("images/...")}` (from `$app/paths`) to `<Photo>` and put the files in `static/images/`

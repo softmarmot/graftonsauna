@@ -1,4 +1,4 @@
-// Demo content: sessions, menu, events, FAQ, testimonials.
+// Demo content: sessions, menu, FAQ, testimonials.
 // Prices and details are placeholders until the client confirms them.
 
 export const sessions = [
@@ -54,20 +54,6 @@ export const platters = [
 ] as const;
 
 export const kitchenPromises = ['Only fresh ingredients', 'Cooked with heart', 'Quality you can rely on'];
-
-export const events = [
-  { date: 'Dec 05', day: 'Sat', title: 'Winter Sauna Night', time: '6:00 – 9:00 pm', desc: 'Candlelit rounds, the jacuzzi under the stars and a warm borscht supper.', price: '$55 per person' },
-  { date: 'Dec 13', day: 'Sun', title: 'Sauna & Breathwork', time: '9:00 – 10:30 am', desc: 'A guided breathing session followed by heat and cold bucket rounds.', price: '$45 per person' },
-  { date: 'Jan 01', day: 'Fri', title: 'New Year Cold Shock', time: '11:00 am – 2:00 pm', desc: 'Start the year with a shock bucket, a sauna and hot tea.', price: '$30 per person' },
-  { date: 'Jan 17', day: 'Sun', title: 'Ladies’ Sauna Morning', time: '9:00 am – 12:00 pm', desc: 'A relaxed women-only session with herbal teas and the jacuzzi.', price: '$50 per person' },
-];
-
-export const privateEvents = [
-  { title: 'Birthdays', desc: 'The sauna, the jacuzzi and a festive platter for up to 8 friends.' },
-  { title: 'Hen & stag parties', desc: 'Heat, cold water and good food before the night out.' },
-  { title: 'Team days', desc: 'A few hours away from screens. We can add a host and a home-cooked lunch.' },
-  { title: 'Small celebrations', desc: 'Anniversaries, reunions and anything worth a toast.' },
-];
 
 export const faqs = [
   { q: 'What should I bring?', a: 'A swimsuit and water shoes or flip-flops. We provide towels, water and tea. Robes are included with Sauna & Jacuzzi sessions.' },

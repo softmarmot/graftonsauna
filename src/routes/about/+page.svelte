@@ -73,7 +73,7 @@
 			<p class="eyebrow">Private hire</p>
 			<h2>Bring your people</h2>
 			<p>Birthdays, team days, a weekend with old friends. Book the whole sauna for your group of up to 8, add the jacuzzi and a festive platter, and we will have it all ready when you arrive.</p>
-			<a class="btn" href={resolve('/events')}>Private events</a>
+			<a class="btn" href={resolve('/contact')}>Ask about private hire</a>
 		</div>
 		<Photo label="Friends in the jacuzzi" tone="forest" ratio="4 / 3" />
 	</div>

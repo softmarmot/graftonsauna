@@ -4,12 +4,14 @@
 export const site = {
   name: 'Crafton Sauna',
   wordmark: 'CRAFTON',
-  tagline: 'Wood-fired heat, cold water, good company.',
+  tagline: 'Hot sauna, cold water, good company.',
   phone: '(555) 014-2290',
   phoneHref: 'tel:+15550142290',
   email: 'hello@craftonsauna.example',
   address: ['18 Millbrook Lane', 'Crafton, ST 00000'],
   mapUrl: 'https://maps.google.com/?q=sauna',
+  // Footer credit. TODO: confirm the developer's site URL.
+  credit: { name: 'softmarmot', url: 'https://github.com/softmarmot' },
   instagram: '#',
   facebook: '#',
   hours: [

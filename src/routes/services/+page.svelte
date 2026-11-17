@@ -3,36 +3,23 @@
 	import PageHero from '#lib/components/PageHero.svelte';
 	import Photo from '#lib/components/Photo.svelte';
 	import SessionCards from '#lib/components/SessionCards.svelte';
-	import AddOns from '#lib/components/AddOns.svelte';
 	import { booking, bookHref } from '#lib';
 
 	const details = [
-		{ t: 'Private Sauna', tone: 'wood', p: ['The whole sauna house for your group of up to 8. The stove is lit an hour before you arrive, so the room is fully hot from your first minute.', 'Book one hour, or add time in 30-minute steps. Most groups stay two hours, which gives time for three or four relaxed rounds.'] },
-		{ t: 'Sauna & Hot Tub', tone: 'forest', p: ['Everything in the private session, plus our cedar hot tub. It sits outside under the trees and is especially good on cold, clear nights.', 'Robes for every guest and a welcome drink are included.'] },
-		{ t: 'Community Sauna', tone: 'steam', p: ['A hosted, shared session on Tuesday and Thursday evenings. Our host runs the rounds, pours the aroma steam and shows first-timers how it works.', 'A friendly way to try sauna if you are on your own. 18+, swimwear required.'] },
-		{ t: 'Birch whisk ritual', tone: 'ember', p: ['A traditional treatment with a bundle of fresh birch and oak leaves. The whisk moves hot steam across your body, then gentle tapping and pressing relaxes the muscles.', 'About 15 minutes, followed by a cold rinse and tea.'] }
+		{ t: 'Private Sauna', tone: 'wood', p: ['The whole sauna house for your group of up to 8. The heater is switched on before you arrive, so the room is fully hot from your first minute.', 'Book one hour, or add time in 30-minute steps. Most groups stay two hours, which gives time for three or four relaxed rounds.'] },
+		{ t: 'Sauna & Jacuzzi', tone: 'forest', p: ['Everything in the private session, plus our hot jacuzzi. Warm water after the cold bucket is the best part of the evening.', 'Robes for every guest and a welcome drink are included.'] },
+		{ t: 'Community Sauna', tone: 'steam', p: ['A hosted, shared session on Tuesday and Thursday evenings. Our host runs the rounds, pours the steam and shows first-timers how it works.', 'A friendly way to try sauna if you are on your own. 18+, swimwear required.'] },
 	] as const;
 </script>
 
-<Seo title="Services" description="Private sauna sessions, hot tub, community nights and treatments." />
+<Seo title="Services" description="Private sauna sessions, hot jacuzzi and community nights." />
 
-<PageHero eyebrow="Services & pricing" title="Sessions & treatments" lead="Every booking includes the sauna, cold plunge, outdoor showers, towels, water and tea.">
+<PageHero eyebrow="Services & pricing" title="Sauna sessions" lead="Every booking includes the sauna, shock bucket, showers, towels, water and tea.">
 	<div class="btn-row hero-cta"><a class="btn" href={bookHref}>Book now</a></div>
 </PageHero>
 
 <section class="section">
 	<div class="container"><SessionCards /></div>
-</section>
-
-<section class="section section--sand">
-	<div class="container">
-		<div class="section-head">
-			<p class="eyebrow">Extras</p>
-			<h2>Add-ons & treatments</h2>
-			<p class="lead">Add any of these when you book, or ask on the day if there is time.</p>
-		</div>
-		<AddOns />
-	</div>
 </section>
 
 {#each details as d, i}

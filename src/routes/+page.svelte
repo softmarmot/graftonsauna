@@ -1,24 +1,23 @@
 <script lang="ts">
-	import { resolve } from '$app/paths';
+	import { resolve, asset } from '$app/paths';
 	import Seo from '#lib/components/Seo.svelte';
 	import Photo from '#lib/components/Photo.svelte';
 	import SessionCards from '#lib/components/SessionCards.svelte';
-	import AddOns from '#lib/components/AddOns.svelte';
 	import Hours from '#lib/components/Hours.svelte';
 	import Testimonials from '#lib/components/Testimonials.svelte';
 	import { site, booking, bookHref } from '#lib';
 
 	const features = [
-		{ title: 'Wood-fired heat', tone: 'ember', text: 'A cast-iron stove and a full basket of stones. Soft, deep heat you can feel in your bones.' },
-		{ title: 'Cold plunge', tone: 'water', text: 'Ice-cold water a few steps from the sauna door. The moment everyone talks about afterwards.' },
-		{ title: 'Cedar hot tub', tone: 'forest', text: 'Optional on any private booking, heated to 102°F and ready when you arrive.' },
-		{ title: 'Fireside lounge', tone: 'wood', text: 'Tea, snacks and blankets between rounds. Stay as long as your booking lasts.' }
+		{ title: 'Electric sauna heat', tone: 'ember', text: 'A powerful electric heater with a basket of stones. Steady, even heat from the first minute, with steam whenever you want it.' },
+		{ title: 'Shock bucket', tone: 'water', text: 'A bucket shower of ice-cold water: pull the rope and it tips over you. The moment everyone talks about afterwards.' },
+		{ title: 'Hot jacuzzi', tone: 'forest', text: 'Optional on any private booking, heated to 102°F and ready when you arrive.' },
+		{ title: 'Home-cooked food', tone: 'wood', src: 'images/menu/khachapuri.jpg', text: 'Khinkali, borscht, plov and festive platters, cooked to order for your group.' }
 	] as const;
 
 	const ritual = [
 		{ n: '01', t: 'Heat', d: '10–15 minutes in the sauna. Pour water on the stones for steam.' },
-		{ n: '02', t: 'Cold', d: 'A plunge or a cold shower. Thirty seconds is enough.' },
-		{ n: '03', t: 'Rest', d: 'Sit by the fire with tea. Let your body settle.' },
+		{ n: '02', t: 'Cold', d: 'Pull the shock bucket or take a cold shower. A few seconds is enough.' },
+		{ n: '03', t: 'Rest', d: 'Sit down with a cup of tea. Let your body settle.' },
 		{ n: '04', t: 'Repeat', d: 'Three rounds is the classic. Go at your own pace.' }
 	];
 </script>
@@ -28,9 +27,9 @@
 <section class="hero">
 	<div class="hero__bg" aria-hidden="true"></div>
 	<div class="container hero__inner">
-		<p class="eyebrow eyebrow--light">Private wood-fired sauna</p>
+		<p class="eyebrow eyebrow--light">Private sauna for up to 8</p>
 		<h1>Heat, cold water<br />and time to slow down</h1>
-		<p class="hero__lead">A Finnish-style sauna house for up to 8 guests, with a cold plunge, an optional cedar hot tub and a fireside lounge.</p>
+		<p class="hero__lead">A Finnish-style sauna for up to 8 guests, with an ice-cold shock bucket, an optional hot jacuzzi and home-cooked food to order.</p>
 		<div class="btn-row">
 			<a class="btn btn--light" href={bookHref}>Book a session</a>
 			<a class="btn btn--ghost-light" href={booking.giftCardUrl}>Buy a gift card</a>
@@ -50,26 +49,15 @@
 	</div>
 </section>
 
-<section class="section section--sand">
-	<div class="container">
-		<div class="section-head">
-			<p class="eyebrow">Add to your visit</p>
-			<h2>Treatments & extras</h2>
-		</div>
-		<AddOns />
-		<p class="more"><a class="btn btn--ghost" href={resolve('/services')}>All services</a></p>
-	</div>
-</section>
-
 <section class="section">
 	<div class="container grid-2">
-		<Photo label="Inside the sauna, benches and stove" tone="wood" ratio="4 / 5" />
+		<Photo label="Inside the sauna, benches and heater" tone="wood" ratio="4 / 5" />
 		<div>
 			<p class="eyebrow">The sauna house</p>
-			<h2>Built from timber, warmed by fire</h2>
-			<p class="lead">We built {site.name} for the slow kind of sauna: real wood heat, a quiet garden and nothing on the clock except your own booking.</p>
-			<p>The room seats eight on two tiers of aspen benches. Outside there is a cold plunge, outdoor showers and a lounge with a wood stove, so you can move between heat and cold the way it has been done for centuries.</p>
-			<a class="btn btn--ghost" href={resolve('/about')}>Our story</a>
+			<h2>Built for proper heat</h2>
+			<p class="lead">We built {site.name} for the slow kind of sauna: strong, steady heat, cold water close by and nothing on the clock except your own booking.</p>
+			<p>The room seats eight on two tiers of wooden benches and is warmed by an electric heater, so it is hot and ready the moment you walk in. Step out to the shock bucket, then into the jacuzzi, and move between heat and cold the way it has been done for centuries.</p>
+			<div class="btn-row"><a class="btn btn--ghost" href={resolve('/about')}>Our story</a><a class="btn btn--ghost" href={resolve('/services')}>All services</a></div>
 		</div>
 	</div>
 </section>
@@ -83,7 +71,7 @@
 		<div class="grid-4">
 			{#each features as f}
 				<article class="feature">
-					<Photo label={f.title} tone={f.tone} ratio="3 / 4" />
+					<Photo label={f.title} tone={f.tone} src={'src' in f ? asset(f.src) : ''} ratio="3 / 4" />
 					<h3>{f.title}</h3>
 					<p>{f.text}</p>
 				</article>
@@ -115,7 +103,7 @@
 			<p class="note">Community Sauna runs Tuesday and Thursday at 6:30 pm. Private bookings fill every other slot.</p>
 		</div>
 		<div>
-			<Photo label="Garden, cold plunge and lounge" tone="forest" ratio="4 / 3" />
+			<Photo label="Jacuzzi and relaxation area" tone="forest" ratio="4 / 3" />
 			<div class="visit__card">
 				<h3>Visit us</h3>
 				<p>{site.address[0]}<br />{site.address[1]}</p>
@@ -141,7 +129,6 @@
 	.hero h1 { color: var(--cream); max-width: 14ch; }
 	.hero__lead { font-size: 1.2rem; max-width: 520px; color: rgba(247, 243, 234, 0.85); margin-bottom: 32px; }
 	.hero__ph { position: absolute; right: 20px; bottom: 16px; font-size: 0.7rem; letter-spacing: 0.1em; text-transform: uppercase; color: rgba(247, 243, 234, 0.5); }
-	.more { text-align: center; margin-top: 36px; }
 	.feature h3 { margin-top: 20px; }
 	.feature p { color: var(--muted); font-size: 0.97rem; }
 	.ritual { list-style: none; padding: 0; margin: 0; display: grid; grid-template-columns: repeat(4, 1fr); gap: 28px; }

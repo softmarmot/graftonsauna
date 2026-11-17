@@ -74,6 +74,7 @@
 	<div class="container footer__bottom">
 		<span>© {year} {site.name}. All rights reserved.</span>
 		<span>Payments by Square: Visa · Mastercard · Amex · Apple Pay · Google Pay</span>
+		<span>Developed by <a href={site.credit.url} target="_blank" rel="noopener">{site.credit.name}</a></span>
 	</div>
 </footer>
 

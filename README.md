@@ -17,10 +17,10 @@ The look and page structure are inspired by kelospa.com. All text and artwork he
 
 | Route | Contents |
 | --- | --- |
-| `/` | Hero, session pricing cards, add-ons, sauna house intro, what's included, the ritual, hours + location, testimonials |
+| `/` | Hero, session pricing cards, sauna intro, what's included, the ritual, hours + location, testimonials |
 | `/about` | Story, the tradition, philosophy, private hire, testimonials |
-| `/services` | Session cards, add-ons, long-form service descriptions, gift cards |
-| `/menu` | Teas, cold drinks, small plates, sweets |
+| `/services` | Session cards, long-form service descriptions, gift cards |
+| `/menu` | Home-cooked dishes and festive platters (made to order), how to order |
 | `/events` | Upcoming events list, private party package, occasion cards |
 | `/faq` | Accordion of common questions |
 | `/contact` | Phone / email / address cards, hours, map slot |
@@ -30,10 +30,10 @@ Every page ends with the booking section (`#book`).
 ## Where to change things
 
 - **Business details, hours, nav, booking links:** `src/lib/site.ts`
-- **Sessions, add-ons, menu, events, FAQ, testimonials:** `src/lib/data.ts`
+- **Sessions, menu dishes, events, FAQ, testimonials:** `src/lib/data.ts`
 - **Colours and fonts:** `src/app.css` (`:root` tokens)
 - **Logo (concept #1, roof + steam):** `src/lib/components/Logo.svelte`
-- **Photos:** pass `src={asset("/images/...")}` (from `$app/paths`) to `<Photo>` and put the files in `static/images/`
+- **Photos:** pass `src={asset("images/...")}` (from `$app/paths`) to `<Photo>` and put the files in `static/images/`
 
 ## Booking (Square Appointments)
 
@@ -63,7 +63,7 @@ npm run build    # static site in build/
 One-time setup: **Settings → Pages → Build and deployment → Source: GitHub Actions**.
 
 The site is then live at `https://<owner>.github.io/graftonsauna/`. The build sets `BASE_PATH=/graftonsauna`, so every link and asset is prefixed with that path.
-Internal links must use `resolve('/route')` from `$app/paths`, and files in `static/` must use `asset('/file')`, so they keep working under that path.
+Internal links must use `resolve('/route')` from `$app/paths`, and files in `static/` must use `asset('file')` (no leading slash), so they keep working under that path.
 
 **Custom domain later:** add it under Settings → Pages, then create a repository variable `BASE_PATH` with an empty value
 (Settings → Secrets and variables → Actions → Variables) so the site builds at the root.

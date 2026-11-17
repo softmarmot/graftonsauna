@@ -35,15 +35,15 @@
 		<div>
 			<p class="eyebrow">Private hire</p>
 			<h2>Host your sauna party</h2>
-			<p class="lead">The sauna house, the hot tub and the lounge, just for your group of up to 8.</p>
+			<p class="lead">The sauna, the jacuzzi and the relaxation area, just for your group of up to 8.</p>
 			<p class="price">from $450 <small>/ 3 hours</small></p>
-			<p style="margin-top:1em">Includes sauna, cold plunge, cedar hot tub, robes, teas, soft drinks and a snack board. Add a host, birch rituals or a catered supper.</p>
+			<p style="margin-top:1em">Includes sauna, shock bucket, hot jacuzzi, robes, teas and soft drinks. Add a host or one of our home-cooked festive platters.</p>
 			<div class="btn-row">
 				<a class="btn" href={bookHref}>Book a party</a>
 				<a class="btn btn--ghost" href="mailto:{site.email}?subject=Private%20event">Ask a question</a>
 			</div>
 		</div>
-		<Photo label="Lanterns and a long table in the lounge" tone="ember" ratio="4 / 5" />
+		<Photo label="Festive table with platters" tone="ember" ratio="4 / 5" />
 	</div>
 </section>
 

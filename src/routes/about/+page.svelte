@@ -7,9 +7,9 @@
 	import { site } from '#lib';
 
 	const values = [
-		{ t: 'Real heat', d: 'A wood-burning stove, not an electric heater. It takes longer to warm, and you can feel the difference.' },
+		{ t: 'Real heat', d: 'A strong electric heater with a full basket of stones. Hot from the first minute, with as much steam as you like.' },
 		{ t: 'Small groups', d: 'One room, eight guests at most. Nobody is rushing you out and nobody is crowding the bench.' },
-		{ t: 'Cold done right', d: 'A deep cold plunge and outdoor showers, a few steps from the sauna door.' },
+		{ t: 'Cold done right', d: 'An ice-cold shock bucket and showers, a few steps from the sauna door.' },
 		{ t: 'Quiet hosting', d: 'We get everything ready, show you around and then leave you to it.' },
 		{ t: 'Clean, always', d: 'A full hour between bookings to clean, restock and bring the heat back up.' }
 	];
@@ -30,10 +30,10 @@
 			<p class="eyebrow">Our story</p>
 			<h2>Why we built a sauna</h2>
 			<p>We grew up with saunas: in grandparents’ gardens, by lakes, after long winter days. When we could not find one nearby that felt the same, we decided to build it ourselves.</p>
-			<p>{site.name} is the result. A timber sauna house, a cold plunge, a cedar hot tub and a lounge with a fire. Nothing flashy. Just the things that make a sauna worth the drive.</p>
+			<p>{site.name} is the result. A hot sauna, an ice-cold shock bucket, a hot jacuzzi and good home cooking. Nothing flashy. Just the things that make a sauna worth the drive.</p>
 			<p>Every session is private or hosted, so the place always feels calm.</p>
 		</div>
-		<Photo label="Owners stacking firewood" tone="wood" ratio="4 / 5" />
+		<Photo label="Owners in front of the sauna" tone="wood" ratio="4 / 5" />
 	</div>
 </section>
 
@@ -44,7 +44,7 @@
 			<p class="eyebrow">The tradition</p>
 			<h2>Löyly, the breath of the sauna</h2>
 			<p>In Finland the steam that rises when water hits hot stones has its own word: löyly. It is the heart of every round. Pour a ladle, feel the wave of heat, breathe slowly.</p>
-			<p>Add a whisk of fresh birch, a cold plunge and a cup of herbal tea, and you have a ritual that people have trusted for health, rest and company for more than a thousand years.</p>
+			<p>Add a pull of the shock bucket and a cup of herbal tea, and you have a ritual that people have trusted for health, rest and company for more than a thousand years.</p>
 		</div>
 	</div>
 </section>
@@ -72,10 +72,10 @@
 		<div>
 			<p class="eyebrow">Private hire</p>
 			<h2>Bring your people</h2>
-			<p>Birthdays, team days, a weekend with old friends. Book the whole sauna house for your group of up to 8, add the hot tub and a snack board, and we will have it all ready when you arrive.</p>
+			<p>Birthdays, team days, a weekend with old friends. Book the whole sauna for your group of up to 8, add the jacuzzi and a festive platter, and we will have it all ready when you arrive.</p>
 			<a class="btn" href={resolve('/events')}>Private events</a>
 		</div>
-		<Photo label="Friends in the hot tub at night" tone="forest" ratio="4 / 3" />
+		<Photo label="Friends in the jacuzzi" tone="forest" ratio="4 / 3" />
 	</div>
 </section>
 

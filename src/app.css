@@ -124,3 +124,4 @@ p { margin: 0 0 1em; }
 /* Cormorant defaults to old-style figures; use lining figures for prices and times. */
 h1, h2, h3, h4, .price, .hours, summary { font-variant-numeric: lining-nums; }
 .price { margin-bottom: 0; }
+.section-head { max-width: 680px; margin: 0 auto 48px; text-align: center; }

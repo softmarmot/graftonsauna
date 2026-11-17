@@ -5,7 +5,13 @@ number, email, address, prices, events and testimonials are all placeholders.
 Photos are styled placeholder blocks with a caption describing the shot that
 belongs there.
 
-Look and page structure are inspired by kelospa.com; all text and artwork here are original.
+The look and page structure are inspired by kelospa.com. All text and artwork here are original.
+
+## Stack
+
+- **SvelteKit** (Svelte 5) with `@sveltejs/adapter-static`. Every page is pre-rendered to plain HTML in `build/`.
+- No backend. Booking, payments, reminders and gift cards come from **Square** (Appointments + eGift cards).
+- Plain CSS: global tokens in `src/app.css`, with component styles scoped inside each `.svelte` file.
 
 ## Pages
 
@@ -19,36 +25,40 @@ Look and page structure are inspired by kelospa.com; all text and artwork here a
 | `/faq` | Accordion of common questions |
 | `/contact` | Phone / email / address cards, hours, map slot |
 
-Every page ends with the booking section (`#book`), and every "Book" button points at it.
+Every page ends with the booking section (`#book`).
 
 ## Where to change things
 
-- **Business details, hours, nav, booking links:** `src/site.ts`
-- **Sessions, add-ons, menu, events, FAQ, testimonials:** `src/data.ts`
-- **Colours and fonts:** `src/styles/global.css` (`:root` tokens)
-- **Logo (concept #1, roof + steam):** `src/components/Logo.astro`
-- **Photos:** pass `src="/images/..."` to `<Photo>` and drop files in `public/images/`
+- **Business details, hours, nav, booking links:** `src/lib/site.ts`
+- **Sessions, add-ons, menu, events, FAQ, testimonials:** `src/lib/data.ts`
+- **Colours and fonts:** `src/app.css` (`:root` tokens)
+- **Logo (concept #1, roof + steam):** `src/lib/components/Logo.svelte`
+- **Photos:** pass `src="/images/..."` to `<Photo>` and put the files in `static/images/`
 
-## Booking (Squarespace Scheduling)
+## Booking (Square Appointments)
 
-1. In Squarespace: Scheduling → Scheduling page → Embed options → copy the iframe `src`.
-2. Paste it into `booking.embedSrc` in `src/site.ts`. The placeholder becomes the live calendar.
-3. Optional: set `booking.bookingUrl` to the public scheduling link if buttons should open it directly.
-4. Set `booking.giftCardUrl` to the Squarespace gift certificate link.
+All three settings live in `booking` in `src/lib/site.ts`:
+
+1. `bookingUrl`: the Square online booking site link (Square Dashboard → Appointments → Online booking).
+   Once it is set, every "Book" button opens Square. Until then the buttons scroll to the on-page booking section.
+2. `widgetScriptSrc`: the `src` from Square's "add a booking widget to your website" code
+   (`https://app.squareup.com/appointments/buyer/widget/.../....js`). Once it is set, the placeholder becomes the live booking flow.
+3. `giftCardUrl`: the Square eGift card order page.
 
 ## Develop
 
 ```bash
 npm install
-npm run dev      # http://localhost:4321
-npm run build    # static site in dist/
+npm run dev      # http://localhost:5173
+npm run check    # type check
+npm run build    # static site in build/
 ```
 
 ## Deploy
 
 Any static host works. Recommended: **Cloudflare Pages** (or Netlify).
 
-- Connect the GitHub repo, build command `npm run build`, output directory `dist`.
-- Every push to `main` deploys; every PR gets its own preview URL to show the client.
-- Add the custom domain in the host's dashboard once it is bought.
-- Remove `<meta name="robots" content="noindex">` in `src/layouts/Base.astro` and the demo banner before launch.
+- Connect the GitHub repo. The build command is `npm run build` and the output directory is `build`.
+- Every push to `main` deploys, and every PR gets its own preview URL.
+- Add the custom domain once it is bought.
+- Before launch, remove the `noindex` meta in `src/app.html`, the `Disallow: /` in `static/robots.txt`, and the demo banner in `src/routes/+layout.svelte`.

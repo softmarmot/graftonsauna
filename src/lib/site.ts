@@ -21,18 +21,25 @@ export const site = {
 };
 
 // ---------------------------------------------------------------------------
-// Booking (Squarespace Scheduling, formerly Acuity)
+// Booking (Square Appointments)
 //
-// bookingUrl:  the public scheduling page link. Every "Book" button uses it.
-// embedSrc:    the iframe src from Squarespace > Scheduling > Embed options.
-//              Looks like https://app.squarespace.com/appointments/....
-//              Leave empty to show the placeholder slot instead of the iframe.
+// bookingUrl:      Square online booking site link
+//                  (Square Dashboard > Appointments > Online booking > Booking site),
+//                  looks like https://book.squareup.com/appointments/.../services
+//                  Until it is set, every "Book" button scrolls to the booking section.
+// widgetScriptSrc: the src from Square's "Add a booking widget to your website" code,
+//                  looks like https://app.squareup.com/appointments/buyer/widget/.../....js
+//                  Leave empty to show the placeholder slot.
+// giftCardUrl:     Square eGift card order page.
 // ---------------------------------------------------------------------------
 export const booking = {
-  bookingUrl: '#book', // every page ends with the booking section; swap for the Squarespace link if preferred
-  embedSrc: '',
+  bookingUrl: '',
+  widgetScriptSrc: '',
   giftCardUrl: '#',
 };
+
+/** Where "Book" buttons go: Square's booking site if set, else the on-page booking section. */
+export const bookHref = booking.bookingUrl || '#book';
 
 export const nav = [
   { href: '/', label: 'Home' },

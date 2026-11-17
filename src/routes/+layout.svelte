@@ -4,7 +4,7 @@
 	import { resolve } from '$app/paths';
 	import Logo from '#lib/components/Logo.svelte';
 	import BookingSlot from '#lib/components/BookingSlot.svelte';
-	import { site, nav, bookHref, booking } from '#lib';
+	import { site, nav, bookHref, booking, mapUrl } from '#lib';
 	import type { LayoutProps } from './$types';
 
 	let { children }: LayoutProps = $props();
@@ -54,7 +54,7 @@
 		<div>
 			<h4>Visit</h4>
 			<p>{site.address[0]}<br />{site.address[1]}</p>
-			<a href={site.mapUrl} target="_blank" rel="noopener">Get directions →</a>
+			<a href={mapUrl} target="_blank" rel="noopener">Get directions →</a>
 		</div>
 		<div>
 			<h4>Hours</h4>

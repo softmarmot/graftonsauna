@@ -9,7 +9,10 @@ export const site = {
   phoneHref: 'tel:+15550142290',
   email: 'hello@craftonsauna.example',
   address: ['18 Millbrook Lane', 'Crafton, ST 00000'],
-  mapUrl: 'https://maps.google.com/?q=sauna',
+  // Map + directions. `mapQuery` is what Google Maps searches for: a street
+  // address or "lat,lng". Placeholder until the real location is known.
+  mapQuery: 'Grafton, MA',
+  mapZoom: 14,
   // Footer credit. TODO: confirm the developer's site URL.
   credit: { name: 'softmarmot', url: 'https://github.com/softmarmot' },
   instagram: '#',
@@ -39,6 +42,10 @@ export const booking = {
   widgetScriptSrc: '',
   giftCardUrl: '#',
 };
+
+/** Google Maps embed (no API key needed) and directions link, built from site.mapQuery. */
+export const mapEmbedUrl = `https://maps.google.com/maps?q=${encodeURIComponent(site.mapQuery)}&z=${site.mapZoom}&output=embed`;
+export const mapUrl = `https://www.google.com/maps/dir/?api=1&destination=${encodeURIComponent(site.mapQuery)}`;
 
 /** Where "Book" buttons go: Square's booking site if set, else the on-page booking section. */
 export const bookHref = booking.bookingUrl || '#book';

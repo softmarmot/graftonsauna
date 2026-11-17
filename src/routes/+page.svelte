@@ -5,7 +5,8 @@
 	import SessionCards from '#lib/components/SessionCards.svelte';
 	import Hours from '#lib/components/Hours.svelte';
 	import Testimonials from '#lib/components/Testimonials.svelte';
-	import { site, booking, bookHref } from '#lib';
+	import { site, booking, bookHref, mapUrl } from '#lib';
+	import MapEmbed from '#lib/components/MapEmbed.svelte';
 
 	const features = [
 		{ title: 'Electric sauna heat', tone: 'ember', text: 'A powerful electric heater with a basket of stones. Steady, even heat from the first minute, with steam whenever you want it.' },
@@ -103,12 +104,12 @@
 			<p class="note">Community Sauna runs Tuesday and Thursday at 6:30 pm. Private bookings fill every other slot.</p>
 		</div>
 		<div>
-			<Photo label="Jacuzzi and relaxation area" tone="forest" ratio="4 / 3" />
+			<MapEmbed />
 			<div class="visit__card">
 				<h3>Visit us</h3>
 				<p>{site.address[0]}<br />{site.address[1]}</p>
 				<p>Free parking on site.</p>
-				<a class="btn" href={site.mapUrl} target="_blank" rel="noopener">Get directions</a>
+				<a class="btn" href={mapUrl} target="_blank" rel="noopener">Get directions</a>
 			</div>
 		</div>
 	</div>
@@ -139,5 +140,5 @@
 	@media (max-width: 860px) { .ritual { grid-template-columns: 1fr 1fr; } }
 	@media (max-width: 480px) { .ritual { grid-template-columns: 1fr; } }
 	.note { margin-top: 20px; color: var(--muted); }
-	.visit__card { background: var(--paper); border: 1px solid var(--line); border-radius: var(--radius); padding: 28px; margin: -60px 24px 0; position: relative; }
+	.visit__card { background: var(--paper); border: 1px solid var(--line); border-radius: var(--radius); padding: 28px; margin-top: 16px; }
 </style>

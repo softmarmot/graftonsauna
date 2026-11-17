@@ -29,7 +29,7 @@ Every page ends with the booking section (`#book`).
 
 ## Where to change things
 
-- **Business details, hours, nav, booking links:** `src/lib/site.ts`
+- **Business details, hours, nav, booking links, map location (`mapQuery`):** `src/lib/site.ts`
 - **Sessions, menu dishes, events, FAQ, testimonials:** `src/lib/data.ts`
 - **Colours and fonts:** `src/app.css` (`:root` tokens)
 - **Logo (concept #1, roof + steam):** `src/lib/components/Logo.svelte`

@@ -47,6 +47,18 @@ export const booking = {
 export const mapEmbedUrl = `https://maps.google.com/maps?q=${encodeURIComponent(site.mapQuery)}&z=${site.mapZoom}&output=embed`;
 export const mapUrl = `https://www.google.com/maps/dir/?api=1&destination=${encodeURIComponent(site.mapQuery)}`;
 
+/**
+ * Background photo for the fixed-background "ritual" band on the home page.
+ * Hot-linked from Unsplash (Unsplash License: free to use, credit appreciated).
+ * Replace with a photo of the real sauna, e.g. asset('images/ritual.jpg').
+ * If it fails to load, the local placeholder static/images/parallax-sauna.jpg shows.
+ */
+export const ritualPhoto = {
+  url: 'https://images.unsplash.com/photo-1757940556610-a114be4733bf?auto=format&fit=crop&w=2400&q=80',
+  credit: 'Auroom Wellness / Unsplash',
+  creditUrl: 'https://unsplash.com/photos/interior-of-a-modern-wooden-sauna-with-heated-stones-Yr27GeesjZU',
+};
+
 /** Where "Book" buttons go: Square's booking site if set, else the on-page booking section. */
 export const bookHref = booking.bookingUrl || '#book';
 

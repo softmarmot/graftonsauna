@@ -19,17 +19,17 @@
 </script>
 
 {#if src && !failed}
-	<img
-		class="photo {cls}"
-		{src}
-		srcset={srcset || undefined}
-		sizes={srcset ? sizes : undefined}
-		alt={label}
-		style:aspect-ratio={ratio}
-		loading="lazy"
-		decoding="async"
-		onerror={() => (failed = true)}
-	/>
+	<div class="photo photo--frame {cls}" style:aspect-ratio={ratio}>
+		<img
+			{src}
+			srcset={srcset || undefined}
+			sizes={srcset ? sizes : undefined}
+			alt={label}
+			loading="lazy"
+			decoding="async"
+			onerror={() => (failed = true)}
+		/>
+	</div>
 {:else}
 	<div class="photo photo--ph photo--{tone} {cls}" style:aspect-ratio={ratio} role="img" aria-label={label}>
 		<span class="photo__label">Photo · {label}</span>
@@ -38,6 +38,12 @@
 
 <style>
 	.photo { display: block; width: 100%; object-fit: cover; border-radius: var(--radius); }
+	/* Frame clips a slow, slight zoom on hover (pointer devices only). */
+	.photo--frame { overflow: hidden; }
+	.photo--frame img { width: 100%; height: 100%; object-fit: cover; transition: transform 1.2s cubic-bezier(0.2, 0.7, 0.2, 1); }
+	@media (hover: hover) and (prefers-reduced-motion: no-preference) {
+		.photo--frame:hover img, :global(.feature:hover) .photo--frame img { transform: scale(1.05); }
+	}
 	.photo--ph { position: relative; overflow: hidden; }
 	.photo--ph::after {
 		content: ''; position: absolute; inset: 0;

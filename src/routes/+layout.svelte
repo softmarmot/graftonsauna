@@ -1,10 +1,11 @@
 <script lang="ts">
 	import '../app.css';
 	import { page } from '$app/state';
+	import { onNavigate } from '$app/navigation';
 	import { resolve } from '$app/paths';
 	import Logo from '#lib/components/Logo.svelte';
 	import BookingSlot from '#lib/components/BookingSlot.svelte';
-	import { site, nav, bookHref, booking, mapUrl } from '#lib';
+	import { site, nav, bookHref, booking, mapUrl, reveal } from '#lib';
 	import type { LayoutProps } from './$types';
 
 	let { children }: LayoutProps = $props();
@@ -13,11 +14,32 @@
 	const current = $derived(page.url.pathname.replace(/\/$/, ''));
 	const isCurrent = (href: string) => current === href.replace(/\/$/, '');
 	const external = booking.bookingUrl ? { target: '_blank', rel: 'noopener' } : {};
+
+	// Header picks up a soft shadow once the page scrolls under it.
+	let scrolled = $state(false);
+	$effect(() => {
+		const onScroll = () => (scrolled = window.scrollY > 8);
+		onScroll();
+		window.addEventListener('scroll', onScroll, { passive: true });
+		return () => window.removeEventListener('scroll', onScroll);
+	});
+
+	// Crossfade between pages where the browser supports View Transitions.
+	// Other browsers (and reduced-motion visitors) just navigate as before.
+	onNavigate((navigation) => {
+		if (!document.startViewTransition || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+		return new Promise((done) => {
+			document.startViewTransition(async () => {
+				done();
+				await navigation.complete;
+			});
+		});
+	});
 </script>
 
 <div class="demo-note">Demo site. Name, phone, email, prices and photos are placeholders.</div>
 
-<header class="header" class:is-open={open}>
+<header class="header" class:is-open={open} class:is-scrolled={scrolled}>
 	<div class="container header__inner">
 		<a href={resolve('/')} class="header__logo" onclick={() => (open = false)}><Logo /></a>
 		<nav class="header__nav" id="site-nav" aria-label="Main">
@@ -36,7 +58,7 @@
 	</div>
 </header>
 
-<main>
+<main use:reveal={page.url.pathname}>
 	{@render children()}
 	<BookingSlot />
 </main>
@@ -79,12 +101,17 @@
 </footer>
 
 <style>
-	.header { position: sticky; top: 0; z-index: 50; background: rgba(251, 249, 244, 0.94); backdrop-filter: blur(8px); border-bottom: 1px solid var(--line); }
+	.header { position: sticky; top: 0; z-index: 50; background: rgba(251, 249, 244, 0.94); backdrop-filter: blur(8px); border-bottom: 1px solid var(--line); transition: box-shadow 0.3s ease; view-transition-name: site-header; }
+	.header.is-scrolled { box-shadow: 0 6px 24px -14px rgba(20, 42, 31, 0.35); }
 	.header__inner { display: flex; align-items: center; gap: 28px; min-height: 84px; }
 	.header__logo { text-decoration: none; flex: none; }
 	.header__nav { display: flex; gap: 26px; margin-left: auto; }
-	.header__nav a { text-decoration: none; color: var(--ink); font-size: 0.8rem; letter-spacing: 0.16em; text-transform: uppercase; padding: 6px 0; border-bottom: 1.5px solid transparent; }
-	.header__nav a:hover, .header__nav a[aria-current='page'] { color: var(--green); border-color: var(--wood); }
+	.header__nav a { position: relative; text-decoration: none; color: var(--ink); font-size: 0.8rem; letter-spacing: 0.16em; text-transform: uppercase; padding: 6px 0; transition: color 0.2s; }
+	/* Underline draws in from the left on hover. */
+	.header__nav a::after { content: ''; position: absolute; left: 0; right: 0; bottom: 0; height: 1.5px; background: var(--wood); transform: scaleX(0); transform-origin: left; transition: transform 0.3s ease; }
+	.header__nav a:hover, .header__nav a[aria-current='page'] { color: var(--green); }
+	.header__nav a:hover::after, .header__nav a[aria-current='page']::after { transform: scaleX(1); }
+	@media (prefers-reduced-motion: reduce) { .header__nav a::after { transition: none; } }
 	.header__actions { display: flex; align-items: center; gap: 18px; }
 	.header__actions .btn { padding: 11px 22px; }
 	.header__phone { text-decoration: none; font-size: 0.9rem; color: var(--green); white-space: nowrap; }
@@ -98,6 +125,7 @@
 		.header__nav { position: absolute; top: 100%; left: 0; right: 0; flex-direction: column; gap: 0; padding: 8px 20px 20px; background: var(--paper); border-bottom: 1px solid var(--line); display: none; }
 		.is-open .header__nav { display: flex; }
 		.header__nav a { padding: 14px 0; border-bottom: 1px solid var(--line); }
+		.header__nav a::after { display: none; }
 		.header__nav .header__phone--mobile { display: block; color: var(--green); }
 		.header__actions { margin-left: auto; }
 		.is-open .header__toggle span:nth-child(1) { transform: translateY(7px) rotate(45deg); }

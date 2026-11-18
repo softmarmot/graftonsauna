@@ -45,6 +45,8 @@
 			</video>
 		{/if}
 	</div>
+	<!-- Soft steam drifting up over the video. Pure CSS, decorative only. -->
+	<div class="hero__steam" aria-hidden="true"><span></span><span></span><span></span><span></span></div>
 	<div class="container hero__inner">
 		<p class="eyebrow eyebrow--light">Private sauna for up to 8</p>
 		<h1>Heat, cold water<br />and time to slow down</h1>
@@ -169,6 +171,33 @@
 	}
 	.hero h1, .hero__lead { text-shadow: 0 1px 14px rgba(0, 0, 0, 0.4); }
 	.hero__inner { position: relative; z-index: 2; padding: 100px 0; }
+	/* Headline, lead and buttons arrive one after another on load. */
+	.hero__inner > * { animation: rise-in 1s cubic-bezier(0.2, 0.7, 0.2, 1) both; }
+	.hero__inner > :nth-child(2) { animation-delay: 0.12s; }
+	.hero__inner > :nth-child(3) { animation-delay: 0.26s; }
+	.hero__inner > :nth-child(4) { animation-delay: 0.4s; }
+	/* Steam: large, very faint, soft-edged wisps that rise, swell and fade.
+	   Only transform/opacity animate, so it stays cheap on phones. */
+	.hero__steam { position: absolute; inset: 0; z-index: 1; overflow: hidden; pointer-events: none; }
+	.hero__steam span {
+		position: absolute; bottom: -30%; width: 46vmax; height: 46vmax; border-radius: 50%;
+		background: radial-gradient(closest-side, rgba(247, 243, 234, 0.16), rgba(247, 243, 234, 0.06) 55%, transparent);
+		opacity: 0; animation: steam 18s ease-in-out infinite;
+	}
+	.hero__steam span:nth-child(1) { left: 2%; animation-delay: 0s; }
+	.hero__steam span:nth-child(2) { left: 30%; animation-delay: -4.5s; animation-duration: 21s; }
+	.hero__steam span:nth-child(3) { left: 55%; animation-delay: -9s; }
+	.hero__steam span:nth-child(4) { left: 72%; animation-delay: -13.5s; animation-duration: 23s; }
+	@keyframes steam {
+		0% { opacity: 0; transform: translate3d(0, 0, 0) scale(0.7); }
+		25% { opacity: 1; }
+		70% { opacity: 0.6; }
+		100% { opacity: 0; transform: translate3d(4vw, -70vh, 0) scale(1.25); }
+	}
+	@media (prefers-reduced-motion: reduce) {
+		.hero__inner > * { animation: none; }
+		.hero__steam { display: none; }
+	}
 	.hero h1 { color: var(--cream); max-width: 14ch; }
 	.hero__lead { font-size: 1.2rem; max-width: 520px; color: rgba(247, 243, 234, 0.85); margin-bottom: 32px; }
 	.hero__credit { position: absolute; right: 16px; bottom: 12px; z-index: 2; font-size: 0.7rem; letter-spacing: 0.06em; color: rgba(247, 243, 234, 0.7); text-decoration: none; }

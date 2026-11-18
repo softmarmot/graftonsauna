@@ -3,12 +3,12 @@
 	import PageHero from '#lib/components/PageHero.svelte';
 	import Photo from '#lib/components/Photo.svelte';
 	import SessionCards from '#lib/components/SessionCards.svelte';
-	import { booking, bookHref } from '#lib';
+	import { booking, bookHref, photos } from '#lib';
 
 	const details = [
-		{ t: 'Private Sauna', tone: 'wood', p: ['The whole sauna house for your group of up to 8. The heater is switched on before you arrive, so the room is fully hot from your first minute.', 'Book one hour, or add time in 30-minute steps. Most groups stay two hours, which gives time for three or four relaxed rounds.'] },
-		{ t: 'Sauna & Jacuzzi', tone: 'forest', p: ['Everything in the private session, plus our hot jacuzzi. Warm water after the cold bucket is the best part of the evening.', 'Robes for every guest and a welcome drink are included.'] },
-		{ t: 'Community Sauna', tone: 'steam', p: ['A hosted, shared session on Tuesday and Thursday evenings. Our host runs the rounds, pours the steam and shows first-timers how it works.', 'A friendly way to try sauna if you are on your own. 18+, swimwear required.'] },
+		{ t: 'Private Sauna', tone: 'wood', photo: photos.rusticSauna, p: ['The whole sauna house for your group of up to 8. The heater is switched on before you arrive, so the room is fully hot from your first minute.', 'Book one hour, or add time in 30-minute steps. Most groups stay two hours, which gives time for three or four relaxed rounds.'] },
+		{ t: 'Sauna & Jacuzzi', tone: 'forest', photo: photos.hotTubSnow, p: ['Everything in the private session, plus our hot jacuzzi. Warm water after the cold bucket is the best part of the evening.', 'Robes for every guest and a welcome drink are included.'] },
+		{ t: 'Community Sauna', tone: 'steam', photo: photos.pouringWater, p: ['A hosted, shared session on Tuesday and Thursday evenings. Our host runs the rounds, pours the steam and shows first-timers how it works.', 'A friendly way to try sauna if you are on your own. 18+, swimwear required.'] },
 	] as const;
 </script>
 
@@ -25,7 +25,7 @@
 {#each details as d, i}
 	<section class="section" class:section--sand={i % 2 === 0}>
 		<div class="container grid-2" class:flip={i % 2 === 1}>
-			<Photo label={d.t} tone={d.tone} ratio="4 / 3" />
+			<Photo label={d.photo.alt} tone={d.tone} src={d.photo.src} srcset={d.photo.srcset} ratio="4 / 3" />
 			<div>
 				<h2>{d.t}</h2>
 				{#each d.p as para}<p>{para}</p>{/each}

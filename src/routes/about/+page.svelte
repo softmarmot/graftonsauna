@@ -4,7 +4,7 @@
 	import Photo from '#lib/components/Photo.svelte';
 	import Logo from '#lib/components/Logo.svelte';
 	import Testimonials from '#lib/components/Testimonials.svelte';
-	import { site } from '#lib';
+	import { site, photos } from '#lib';
 
 	const values = [
 		{ t: 'Real heat', d: 'A strong electric heater with a full basket of stones. Hot from the first minute, with as much steam as you like.' },
@@ -39,7 +39,7 @@
 
 <section class="section section--sand">
 	<div class="container grid-2">
-		<Photo label="Steam rising from the stones" tone="steam" ratio="4 / 3" />
+		<Photo label={photos.steam.alt} tone="steam" src={photos.steam.src} srcset={photos.steam.srcset} ratio="4 / 3" />
 		<div>
 			<p class="eyebrow">The tradition</p>
 			<h2>Löyly, the breath of the sauna</h2>
@@ -75,7 +75,7 @@
 			<p>Birthdays, team days, a weekend with old friends. Book the whole sauna for your group of up to 8, add the jacuzzi and a festive platter, and we will have it all ready when you arrive.</p>
 			<a class="btn" href={resolve('/contact')}>Ask about private hire</a>
 		</div>
-		<Photo label="Friends in the jacuzzi" tone="forest" ratio="4 / 3" />
+		<Photo label={photos.hotTubWater.alt} tone="forest" src={photos.hotTubWater.src} srcset={photos.hotTubWater.srcset} ratio="4 / 3" />
 	</div>
 </section>
 

@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { resolve } from '$app/paths';
+	import { resolve, asset } from '$app/paths';
 	import Seo from '#lib/components/Seo.svelte';
 	import Photo from '#lib/components/Photo.svelte';
 	import Logo from '#lib/components/Logo.svelte';
@@ -33,7 +33,7 @@
 			<p>{site.name} is the result. A hot sauna, an ice-cold shock bucket, a hot jacuzzi and good home cooking. Nothing flashy. Just the things that make a sauna worth the drive.</p>
 			<p>Every session is private or hosted, so the place always feels calm.</p>
 		</div>
-		<Photo label="Owners in front of the sauna" tone="wood" ratio="4 / 5" />
+		<Photo label="Our lounge: brick grill with a wooden mantel and a log-end wall" src={asset('images/lounge.webp')} ratio="4 / 5" />
 	</div>
 </section>
 

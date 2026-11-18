@@ -202,6 +202,26 @@
 	.hero__lead { font-size: 1.2rem; max-width: 520px; color: rgba(247, 243, 234, 0.85); margin-bottom: 32px; }
 	.hero__credit { position: absolute; right: 16px; bottom: 12px; z-index: 2; font-size: 0.7rem; letter-spacing: 0.06em; color: rgba(247, 243, 234, 0.7); text-decoration: none; }
 	.hero__credit:hover { text-decoration: underline; }
+	/* Phones: a landscape video cropped to a tall screen (and stretched further
+	   by the parallax layer) shows only a sliver of the scene. Instead, show the
+	   whole frame as a wide band on top, fading into the green, with the text
+	   underneath. No parallax, overlay or steam here. */
+	@media (max-width: 760px) {
+		.hero { flex-direction: column; align-items: stretch; min-height: 0; }
+		.hero::before, .hero__steam { display: none; }
+		.hero__media {
+			position: relative; top: 0 !important; height: auto !important; transform: none !important;
+			aspect-ratio: 1024 / 540; will-change: auto;
+		}
+		.hero__media video { position: absolute; inset: 0; }
+		.hero__media::after {
+			content: ''; position: absolute; inset: 0;
+			background: linear-gradient(180deg, transparent 68%, var(--green-deep));
+		}
+		.hero__inner { padding: 8px 0 64px; }
+		.hero h1 { max-width: none; }
+		.hero__credit { top: 10px; bottom: auto; right: 10px; text-shadow: 0 1px 6px rgba(0, 0, 0, 0.6); }
+	}
 	.feature h3 { margin-top: 20px; }
 	.feature p { color: var(--muted); font-size: 0.97rem; }
 	/* Parallax band. The image layer is moved by the parallax action

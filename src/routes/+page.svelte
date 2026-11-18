@@ -5,13 +5,13 @@
 	import SessionCards from '#lib/components/SessionCards.svelte';
 	import Hours from '#lib/components/Hours.svelte';
 	import Testimonials from '#lib/components/Testimonials.svelte';
-	import { site, booking, bookHref, mapUrl, ritualPhoto, heroVideo, parallax } from '#lib';
+	import { site, booking, bookHref, mapUrl, ritualPhoto, heroVideo, parallax, photos } from '#lib';
 	import MapEmbed from '#lib/components/MapEmbed.svelte';
 
 	const features = [
-		{ title: 'Electric sauna heat', tone: 'ember', text: 'A powerful electric heater with a basket of stones. Steady, even heat from the first minute, with steam whenever you want it.' },
-		{ title: 'Shock bucket', tone: 'water', text: 'A bucket shower of ice-cold water: pull the rope and it tips over you. The moment everyone talks about afterwards.' },
-		{ title: 'Hot jacuzzi', tone: 'forest', text: 'Optional on any private booking, heated to 102°F and ready when you arrive.' },
+		{ title: 'Electric sauna heat', tone: 'ember', photo: photos.electricHeater, text: 'A powerful electric heater with a basket of stones. Steady, even heat from the first minute, with steam whenever you want it.' },
+		{ title: 'Shock bucket', tone: 'water', photo: photos.woodenBucket, text: 'A bucket shower of ice-cold water: pull the rope and it tips over you. The moment everyone talks about afterwards.' },
+		{ title: 'Hot jacuzzi', tone: 'forest', photo: photos.hotTubDeck, text: 'Optional on any private booking, heated to 102°F and ready when you arrive.' },
 		{ title: 'Home-cooked food', tone: 'wood', src: 'images/menu/khachapuri.jpg', text: 'Khinkali, borscht, plov and festive platters, cooked to order for your group.' }
 	] as const;
 
@@ -72,7 +72,7 @@
 
 <section class="section section--sand">
 	<div class="container grid-2">
-		<Photo label="Inside the sauna, benches and heater" tone="wood" ratio="4 / 5" />
+		<Photo label={photos.saunaInterior.alt} src={photos.saunaInterior.src} srcset={photos.saunaInterior.srcset} ratio="4 / 5" />
 		<div>
 			<p class="eyebrow">The sauna house</p>
 			<h2>Built for proper heat</h2>
@@ -92,7 +92,11 @@
 		<div class="grid-4">
 			{#each features as f}
 				<article class="feature">
-					<Photo label={f.title} tone={f.tone} src={'src' in f ? asset(f.src) : ''} ratio="3 / 4" />
+					{#if 'photo' in f}
+						<Photo label={f.photo.alt} tone={f.tone} src={f.photo.src} srcset={f.photo.srcset} sizes="(max-width: 760px) 100vw, 25vw" ratio="3 / 4" />
+					{:else}
+						<Photo label={f.title} tone={f.tone} src={asset(f.src)} ratio="3 / 4" />
+					{/if}
 					<h3>{f.title}</h3>
 					<p>{f.text}</p>
 				</article>

@@ -8,13 +8,28 @@
 		label,
 		tone = 'wood',
 		src = '',
+		srcset = '',
+		sizes = '(max-width: 760px) 100vw, 50vw',
 		ratio = '4 / 3',
 		class: cls = ''
-	}: { label: string; tone?: Tone; src?: string; ratio?: string; class?: string } = $props();
+	}: { label: string; tone?: Tone; src?: string; srcset?: string; sizes?: string; ratio?: string; class?: string } = $props();
+
+	// Hot-linked stock photos can fail (offline, blocked CDN): fall back to the placeholder.
+	let failed = $state(false);
 </script>
 
-{#if src}
-	<img class="photo {cls}" {src} alt={label} style:aspect-ratio={ratio} loading="lazy" />
+{#if src && !failed}
+	<img
+		class="photo {cls}"
+		{src}
+		srcset={srcset || undefined}
+		sizes={srcset ? sizes : undefined}
+		alt={label}
+		style:aspect-ratio={ratio}
+		loading="lazy"
+		decoding="async"
+		onerror={() => (failed = true)}
+	/>
 {:else}
 	<div class="photo photo--ph photo--{tone} {cls}" style:aspect-ratio={ratio} role="img" aria-label={label}>
 		<span class="photo__label">Photo · {label}</span>
